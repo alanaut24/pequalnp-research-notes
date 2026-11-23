@@ -1,0 +1,12 @@
+∃ C : PEqualNP.CircuitLowerBounds.Circuit,
+      PEqualNP.MetaComplexity.Monotone2 C ∧ C.size = 7 ∧ C.output = 12 ∧
+      (∀ (x : Fin 4 → Bool) (y : Fin 2 → Bool),
+        C.eval (List.ofFn x ++ List.ofFn y) =
+          decide (∃ (p : Fin 4) (w : Fin 2),
+            p.val / 2 = w.val ∧ x p = true ∧ y w = true)) ∧
+      (∀ w : Fin 2,
+        PEqualNP.LowMerge.IsNewLowMerge 4 2
+          (fun p w => decide (p.val / 2 = w.val)) C 12 w) ∧
+      (∀ (p p' : Fin 4) (w w' : Fin 2), p ≠ p' → w ≠ w' →
+        ¬ (p.val / 2 = w.val ∧ p.val / 2 = w'.val ∧
+           p'.val / 2 = w.val ∧ p'.val / 2 = w'.val))
